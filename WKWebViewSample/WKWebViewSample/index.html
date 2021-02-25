@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+
+<meta name="viewport" content="width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+<head>
+    <title>原生与js交互</title>
+
+</head>
+
+<body>
+    <script>
+        function ocCallJsNoParams() {
+            alert("原生调用js无参数");
+        }
+
+        function jsCallOcNoParams() {
+            window.webkit.messageHandlers.jsCallOCNoParams.postMessage({});
+        }
+
+        function ocCallJsParams() {
+            alert("原生调用js,参数:");
+        }
+
+        function jsCallOcParams() {
+            window.webkit.messageHandlers.jsCallOCParams.postMessage({"params":"我是参数"});
+        }
+        //OC调用JS改变背景色
+        function changeColor(parameter) {
+            document.body.style.backgroundColor = randomColor();
+        }
+
+        function alertJSToOC() {
+            alert("OC捕获到js弹窗");
+        }
+
+        //随机生成颜色
+        function randomColor() {
+            var r = Math.floor(Math.random() * 256);
+            var g = Math.floor(Math.random() * 256);
+            var b = Math.floor(Math.random() * 256);
+            return "rgb(" + r + ',' + g + ',' + b + ")"; //所有方法的拼接都可以用ES6新特性`其他字符串{$变量名}`替换
+        }
+    </script>
+
+    <div style="text-align: center;">
+        <button onclick="jsCallOcNoParams()">js调用原生无参数</button>
+    </div>
+
+    <div style="text-align: center;">
+        <button onclick="jsCallOcParams()">js调用原生有参数</button>
+    </div>
+
+    <div style="text-align: center;">
+        <button onclick="alertJSToOC()">OC捕获js弹窗</button>
+    </div>
+</body>
+
+</html>
